@@ -7,8 +7,6 @@ export const Wrapper = styled.div`
   background: ${theme.colors.WHITE};
   color: ${theme.colors.DARK};
 
-
-  /* bring your own prefixes */
   min-height: 55rem;
   top: 50%;
   transform: translate(0, -50%);

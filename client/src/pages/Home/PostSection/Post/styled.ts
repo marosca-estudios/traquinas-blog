@@ -23,7 +23,6 @@ export const Title = styled.h1`
   margin: 5rem 0;
   align-self: center;
 
-
   ${mqMax.desktop} {
     margin: 2rem 0;
     font-size: 3.2rem;
@@ -40,6 +39,12 @@ export const Content = styled.div`
   border-bottom: 0.5rem solid lightgray;
   padding-bottom: 5rem;
   color: ${theme.colors.BLACK};
+
+  * {
+    img {
+      max-width: 100%;
+    }
+  }
 `
 
 export const LeftLine = styled.div`

@@ -1,6 +1,6 @@
 import React from 'react'
-import { listPostIds, loadSetOfPosts } from 'global/blogger'
-import { debounce } from 'throttle-debounce';
+import { listPostIds, loadSetOfPosts } from 'data/blogger/services'
+import { debounce } from 'throttle-debounce'
 
 import isScrollEnd from 'utils/isScrollEnd'
 
