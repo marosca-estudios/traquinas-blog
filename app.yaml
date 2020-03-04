@@ -1,5 +1,2 @@
 runtime: nodejs10
-
-service: frontend-development
-
 instance_class: F1
