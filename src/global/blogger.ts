@@ -36,105 +36,20 @@ export const getPost = async (postId: string): Promise<Post> =>
   await fetch(`${endpoint}/posts/${postId}/?${suffix}`)
     .then(response => response.json())
 
-
-    const mock = [
-      {
-      id: '1234',
-      content: 'helloooo',
-      title: 'heyheyehye'
-    },
-    {
-      id: '2',
-      content: 'helloooo',
-      title: 'heyheyehye'
-    },
-    {
-      id: '3',
-      content: 'helloooo',
-      title: 'heyheyehye'
-    },
-    {
-      id: '4',
-      content: 'helloooo',
-      title: 'heyheyehye'
-    },
-    {
-      id: '5',
-      content: 'helloooo',
-      title: 'heyheyehye'
-    },
-    {
-      id: '6',
-      content: 'helloooo',
-      title: 'heyheyehye'
-    },
-    {
-      id: '7',
-      content: 'helloooo',
-      title: 'heyheyehye'
-    },
-    {
-      id: '8',
-      content: 'helloooo',
-      title: 'heyheyehye'
-    },
-    {
-      id: '9',
-      content: 'helloooo',
-      title: 'heyheyehye'
-    },
-    {
-      id: '10',
-      content: 'helloooo',
-      title: 'heyheyehye'
-    },
-    {
-      id: '12',
-      content: 'helloooo',
-      title: 'heyheyehye'
-    },
-    {
-      id: '13',
-      content: 'helloooo',
-      title: 'heyheyehye'
-    },
-  
-    {
-      id: '14',
-      content: 'helloooo',
-      title: 'heyheyehye'
-    },    {
-      id: '15',
-      content: 'helloooo',
-      title: 'heyheyehye'
-    },
-  ]
-
-export const lazyLoad = async (
+export const loadSetOfPosts = async (
   cursor: number = 0,
   maxPosts: number = 3,
-) => {
-  const m = mock
+  postIds: Array<any>,
+): Promise<Post[]> => {
+  const ids = postIds.slice(cursor, cursor + maxPosts)
 
-  console.log('cursor, ', cursor, 'maxPosts', maxPosts)
-  console.log('data: ', mock)
+  if (!ids) {
+    return []
+  }
 
-  console.log(m.slice(cursor, maxPosts))
+  const payload: Promise<Post[]> = Promise.all(ids.map(async (post: { id: string }) =>
+    await getPost(post.id)
+  ))
 
-return Promise.resolve(m).then(m => m.slice(cursor, cursor + maxPosts))
-
-  // console.log('cursor: ', cursor)
-  // const postIds = await listPostIds().then(payload =>
-  //   payload && payload.items && payload.items.length && payload.items.slice(cursor, maxPosts)
-  // )
-
-  // if (!postIds) {
-  //   return []
-  // }
-
-  // const payload: Promise<Post[]> = Promise.all(postIds.map(async (post: { id: string }) =>
-  //   await getPost(post.id)
-  // ))
-
-  // return payload
+  return payload
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import theme from 'global/theme'
 // @ts-ignore
 import bee from './bee.mp4'
@@ -21,35 +21,41 @@ const Hero = styled.section`
   z-index: ${theme.zIndices.NEGATIVE};
 `
 
+const centeredAbsolute = css`
+  position: absolute;
+  height: 100%;
+
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
+const ContentWrapper = styled.div`
+  ${centeredAbsolute};
+
+  top: 50%;
+`
+
 const WhiteWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  margin-top: 10rem;
-  border-top: 1px solid ${theme.colors.PRIMARY};
-  padding: 3rem;
 
   background: ${theme.colors.WHITE};
+  height: 100%;
+  margin-top: 10rem;
 
-  ${mqMax.desktop} {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    position: absolute;
-    bottom: 0;
-    z-index: -1;
-    padding: 0;
-    height: 30%;
-    border: none;
-  }
+
+  border-top: 1px solid ${theme.colors.PRIMARY};
 `
 
 const Logo = styled.h1`
   font-size: 5rem;
   font-weight: 800;
-  margin: 0;
+  margin: 2rem 0;
   color: ${theme.colors.DARK};
 
   ${mqMax.desktop} {
@@ -62,7 +68,8 @@ const Logo = styled.h1`
   }
 
   ${mqMax.mobile} {
-    font-size: 4rem;
+    font-size: 3.4rem;
+    margin: 0.5rem 0;
   }
 `
 
@@ -128,13 +135,13 @@ const BeeContainer = styled.video`
   z-index: -1;
   width: 65rem;
 
-  top: 17.5%;
+  ${centeredAbsolute};
 
-  ${mqMax.desktop} {
+  /* ${mqMax.desktop} {
     max-width: 50rem;
     max-height: 100%;
     top: 10%;
-  }
+  } */
 `
 
 export const Bee = () => {
@@ -154,10 +161,12 @@ const LandingSection = ({ onScroll }: Props) =>  (
   <>
     <Hero>
       <Bee />
-      <WhiteWrapper>
-        <Logo>Traquinas de Vale de Cavalos</Logo>
-        <Description>Um blog muito divertido</Description>
-      </WhiteWrapper>
+      <ContentWrapper>
+        <WhiteWrapper>
+          <Logo>Traquinas de Vale de Cavalos</Logo>
+          <Description>Um blog muito divertido</Description>
+        </WhiteWrapper>
+      </ContentWrapper>
     </Hero>
     <AbsoluteContainer>
       <Bottom onClick={onScroll} />

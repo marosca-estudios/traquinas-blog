@@ -22,9 +22,6 @@ const Home = () => {
       <Container>
         <LandingSection onScroll={() => scroll(postSection)} />
         <PostSection ref={postSection} />
-        <footer>
-          Hello
-        </footer>
       </Container>
     </React.Fragment>
   )

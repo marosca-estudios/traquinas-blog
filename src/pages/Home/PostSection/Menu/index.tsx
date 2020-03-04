@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { Wrapper } from './styled'
 
 type Props = {
   sectionRef: React.Ref<any> | any,
 }
+
+const OFFSET = 1.5
 
 const Menu = ({ sectionRef }: Props) => {
   const [showMenu, setShowMenu] = useState<boolean>();
 
   const handleScroll = useCallback(() => {
     const currentPagePosition = window.pageYOffset;
-    const postSectionPosition = sectionRef.current.offsetTop;
+    const postSectionPosition = sectionRef.current.offsetTop / OFFSET;
 
     if (currentPagePosition >= postSectionPosition) {
       if (!showMenu) {
@@ -30,7 +33,9 @@ const Menu = ({ sectionRef }: Props) => {
   }, [handleScroll])
 
   return showMenu
-    ? <h1>Hello</h1>
+    ? <Wrapper showMenu={showMenu}>
+        Hello
+    </Wrapper>
     : null
 }
 

@@ -7,4 +7,8 @@ export default {
     desktop: 880,
     mobile: 450,
   },
+  posts: {
+    /** Posts to load on each scroll end */
+    offset: 10,
+  }
 }

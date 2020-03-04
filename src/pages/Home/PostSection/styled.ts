@@ -11,6 +11,7 @@ export const Section = styled.section<any>`
   padding: 0 5rem;
   background: ${theme.colors.PRIMARY};
   z-index: ${theme.zIndices.SECTION};
+  width: 100%;
 
   ${mqMax.desktop} {
     padding: 0 1rem;
@@ -20,9 +21,9 @@ export const Section = styled.section<any>`
 export const PostsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 70%;
-
+  width: 100%;
   min-height: 100vh;
+  max-width: 90rem;
 
 
   ${mqMax.desktop} {
@@ -34,6 +35,7 @@ export const MenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 30%;
+  min-height: 100vh;
 
   ${mqMax.desktop} {
     display: none;

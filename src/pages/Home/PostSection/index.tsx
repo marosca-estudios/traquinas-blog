@@ -1,16 +1,22 @@
-import React, { useState, useEffect, lazy, useCallback } from 'react'
-import { lazyLoad } from 'global/blogger'
+import React from 'react'
+import { listPostIds, loadSetOfPosts } from 'global/blogger'
+import { debounce } from 'throttle-debounce';
 
 import isScrollEnd from 'utils/isScrollEnd'
 
+import config from 'global/config'
 import { Post as PostType } from 'data/blogger/types'
 import Post from './Post'
 import Menu from './Menu'
 import { Section, PostsContainer, MenuWrapper } from './styled'
 
-const POST_OFFSET = 3
+const POST_OFFSET = config.posts.offset
 
-
+type PostIdPayload = {
+  items: Array<{
+    id: string,
+  }>
+}
 
 class InfinitePosts extends React.Component<any, any> {
   constructor(props: any) {
@@ -18,23 +24,38 @@ class InfinitePosts extends React.Component<any, any> {
 
     this.state = {
       posts: [],
+      postIds: [],
       cursor: 0,
     }
 
-    this.handleScroll = this.handleScroll.bind(this);
+    this.handleScroll = debounce(250,this.handleScroll.bind(this));
+
+    this.fetchPostIds = this.fetchPostIds.bind(this);
+
     this.fetchPosts = this.fetchPosts.bind(this);
   }
 
+  fetchPostIds() {
+    listPostIds()
+      .then((payload: PostIdPayload) => this.setState({
+        postIds: payload.items,
+      }))
+      .then(() =>
+        this.fetchPosts()
+      )
+  }
+
   fetchPosts() {
-    const { cursor, posts } = this.state
+    const { cursor, posts, postIds } = this.state
 
-    this.setState({ cursor: cursor + POST_OFFSET})
-
-    lazyLoad(cursor, POST_OFFSET)
+    loadSetOfPosts(cursor, POST_OFFSET, postIds)
       .then((payload: any) => {
         console.log('payload: ', payload)
         const newPosts = posts.concat(payload)
         this.setState({ posts: newPosts })
+      })
+      .then(() => {
+        this.setState({ cursor: cursor + POST_OFFSET})
       })
   }
 
@@ -50,7 +71,9 @@ class InfinitePosts extends React.Component<any, any> {
     // @ts-ignore
     document.addEventListener('scroll', this.handleScroll)
 
-    this.fetchPosts()
+    this.fetchPostIds()
+
+    // this.fetchPosts()
   }
 
   componentWillUnmount() {
@@ -72,33 +95,6 @@ class InfinitePosts extends React.Component<any, any> {
 
 
 const PostSection = React.forwardRef((props, ref) => {
-  // const [posts, setPosts] = useState<PostType[]>([])
-  // const [cursor, setCursor] = useState<number>(0)
-
-  // useEffect(() => {
-  //   document.addEventListener('scroll', (event: any) => {
-  //     if (isScrollEnd(event.target.scrollingElement)) {
-  //       setCursor(cursor + POST_OFFSET)
-  //     }
-  //   })
-
-  //   return () => {
-  //     document.removeEventListener('scroll', (event: any) => {
-  //       if (isScrollEnd(event.target.scrollingElement)) {
-  //         setCursor(cursor + POST_OFFSET)
-  //       }
-  //     })
-  //   }
-  // }, [cursor])
-
-  // useEffect(() => {
-  //   lazyLoad(cursor, POST_OFFSET)
-  //     .then((payload: PostType[]) => {
-  //       const newPosts = posts.concat(payload)
-  //       setPosts(newPosts)
-  //     })
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [cursor, setCursor])
 
   return (
     <Section ref={ref}>
@@ -106,9 +102,9 @@ const PostSection = React.forwardRef((props, ref) => {
         {posts.map((post: PostType, index: number) => <Post post={post} key={index} index={index} />)}
       </PostsContainer> */}
       <InfinitePosts />
-      <MenuWrapper>
+      {/* <MenuWrapper>
         <Menu sectionRef={ref} />
-      </MenuWrapper>
+      </MenuWrapper> */}
     </Section>
   )
 })
