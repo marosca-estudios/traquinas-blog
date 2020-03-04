@@ -41,7 +41,7 @@ export const loadSetOfPosts = async (
   maxPosts: number = 3,
   postIds: Array<any>,
 ): Promise<Post[]> => {
-  const ids = postIds.slice(cursor, cursor + maxPosts)
+  const ids = postIds && postIds.length && postIds.slice(cursor, cursor + maxPosts)
 
   if (!ids) {
     return []

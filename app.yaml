@@ -1,0 +1,12 @@
+---
+  kind: app
+  type: docker
+  name: default
+
+  steps:
+  - name: build
+    image: node:latest
+    commands:
+      - cd backend-development
+      - npm install
+      - npm run build

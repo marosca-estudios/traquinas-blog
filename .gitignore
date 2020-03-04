@@ -1,3 +1,3 @@
-.env
-node_modules/
-package-lock.json
+frontend-development/.env
+frontend-development/node_modules/
+frontend-development/package-lock.json
