@@ -1,12 +1,5 @@
----
-  kind: app
-  type: docker
-  name: default
+runtime: nodejs10
 
-  steps:
-  - name: build
-    image: node:latest
-    commands:
-      - cd backend-development
-      - npm install
-      - npm run build
+service: frontend-development
+
+instance_class: F1
