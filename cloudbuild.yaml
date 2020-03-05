@@ -30,8 +30,6 @@ steps:
     args:
       - "app"
       - "deploy"
-      - "--project"
-      - "abelha-vale-de-cavalos"
     dir: "client"
     timeout: "600s"
 
