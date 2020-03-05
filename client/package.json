@@ -26,7 +26,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "create-env": "printenv > .env.production",
+    "check-env": "echo .env.production"
   },
   "eslintConfig": {
     "extends": "react-app"
