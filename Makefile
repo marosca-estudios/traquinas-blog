@@ -6,6 +6,11 @@ export NODE_OPTIONS := --trace-deprecation --trace-warnings
 all: clean
 	make build
 
+# Starts project on local environment
+watch:
+	cd client; \
+	npm start
+
 # Erase node modules, package-lock.json
 clean:
 	cd client; \
