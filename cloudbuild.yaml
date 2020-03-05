@@ -1,0 +1,37 @@
+steps:
+  # Install dependencies
+  - name: "node:10.15.1"
+    entrypoint: yarn
+    args:
+      - "install"
+    dir: "client"
+
+  # Create production env
+  - name: node:10.15.1
+    entrypoint: yarn
+    args:
+      - "create-env"
+    env:
+      - "NODE_PATH=src/"
+      - "REACT_APP_GOOGLE_BLOGGER_BASE_URI=${GOOGLE_BLOGGER_BASE_URI}"
+      - "REACT_APP_GOOGLE_BLOGGER_BLOG_ID=${GOOGLE_BLOGGER_BLOG_ID}"
+      - "REACT_APP_GOOGLE_BLOGGER_API_KEY=${GOOGLE_BLOGGER_API_KEY}"
+    dir: "client"
+
+  # Build client
+  - name: "node:10.15.1"
+    entrypoint: yarn
+    args:
+       - "build"
+    dir: "client"
+
+  # Deploy
+  - name: "gcr.io/cloud-builders/gcloud"
+    args:
+      - "app"
+      - "deploy"
+      - "--project"
+      - "abelha-vale-de-cavalos"
+    dir: "client"
+    timeout: "600s"
+

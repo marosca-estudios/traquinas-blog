@@ -28,11 +28,11 @@ class InfinitePosts extends React.Component<any, any> {
       cursor: 0,
     }
 
-    this.handleScroll = debounce(250,this.handleScroll.bind(this));
+    this.handleScroll = this.handleScroll.bind(this)
 
-    this.fetchPostIds = this.fetchPostIds.bind(this);
+    this.fetchPostIds = this.fetchPostIds.bind(this)
 
-    this.fetchPosts = this.fetchPosts.bind(this);
+    this.fetchPosts = this.fetchPosts.bind(this)
   }
 
   fetchPostIds() {
@@ -50,12 +50,8 @@ class InfinitePosts extends React.Component<any, any> {
 
     loadSetOfPosts(cursor, POST_OFFSET, postIds)
       .then((payload: any) => {
-        console.log('payload: ', payload)
         const newPosts = posts.concat(payload)
-        this.setState({ posts: newPosts })
-      })
-      .then(() => {
-        this.setState({ cursor: cursor + POST_OFFSET})
+        this.setState({ posts: newPosts, cursor: cursor + POST_OFFSET })
       })
   }
 
@@ -64,7 +60,7 @@ class InfinitePosts extends React.Component<any, any> {
       return
     }
 
-    this.fetchPosts()
+    debounce(250, () => this.fetchPosts())
   }
 
   componentDidMount() {
