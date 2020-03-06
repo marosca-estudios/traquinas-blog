@@ -1,5 +1,5 @@
 import React from 'react'
-import Bee from './Bee'
+import Bee from 'components/Bee'
 import {
   Hero,
   ContentWrapper,

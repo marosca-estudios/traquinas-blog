@@ -5,6 +5,7 @@ const { keys, values } = Object
 
 type Mq = {
   desktop: string,
+  mobileLanding: string,
   mobile: string,
 }
 

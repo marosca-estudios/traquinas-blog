@@ -36,7 +36,6 @@ export const Content = styled.div`
   background: ${theme.colors.WHITE};
   width: 100%;
   position: relative;
-  border-bottom: 0.5rem solid lightgray;
   padding-bottom: 5rem;
   color: ${theme.colors.BLACK};
 
@@ -73,7 +72,7 @@ export const RightLine = styled(LeftLine)`
 
 export const TextWrapper = styled.div`
   margin-left: 10rem;
-  margin-right: 8rem;
+  margin-right: 10rem;
 
 
   ${mqMax.desktop} {
