@@ -5,6 +5,7 @@ export default {
   },
   breakpoints: {
     desktop: 880,
+    mobileLanding: 660,
     mobile: 450,
   },
   posts: {

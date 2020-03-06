@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { centeredAbsolute } from '../styled'
+import { centeredAbsolute } from 'styledComponents/utils'
 
 export const BeeContainer = styled.video`
   display: flex;

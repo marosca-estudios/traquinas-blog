@@ -40,16 +40,13 @@ export default createGlobalStyle`
     background: ${theme.colors.PRIMARY};
     color: ${theme.colors.WHITE};
 
-    h1, h2, h3, h4, h5, button, p {
+    h1, h2, h3, h4, h5, button, p, * {
       ${rozha};
     }
 
     button {
       outline: none;
     }
-
-
-    font-family: 'Open Sans', sans-serif;
 
     overflow-x: hidden;
 
