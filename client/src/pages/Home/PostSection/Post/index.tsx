@@ -15,18 +15,22 @@ type Props = {
   index: number,
 }
 
-const Post = ({ post, index}: Props) => (
-  <PostWrapper>
-    <Header publishedDate={post.published} />
-    <Content>
-      <Title>{post.title}</Title>
-      <TextWrapper>
-        <div dangerouslySetInnerHTML={{__html: post.content}} />
-      </TextWrapper>
-      <LeftLine />
-      <RightLine />
-    </Content>
-  </PostWrapper>
-)
+const hasError = (post: any): boolean => Boolean(!post || post.error)
+
+const Post = ({ post, index}: Props) => hasError(post)
+  ? null
+  : (
+    <PostWrapper>
+      <Header publishedDate={post.published} />
+      <Content>
+        <Title>{post.title}</Title>
+        <TextWrapper>
+          <div dangerouslySetInnerHTML={{__html: post.content}} />
+        </TextWrapper>
+        <LeftLine />
+        <RightLine />
+      </Content>
+    </PostWrapper>
+  )
 
 export default Post;

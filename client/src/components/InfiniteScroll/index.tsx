@@ -1,9 +1,9 @@
 import React from 'react'
-
 import isScrollEnd from 'utils/isScrollEnd'
-
 import config from 'global/config'
 import { debounce } from 'throttle-debounce'
+import Spinner from 'components/Spinner'
+import { Wrapper } from './styled'
 
 const FETCH_OFFSET = config.posts.offset
 
@@ -22,6 +22,7 @@ type State = {
   data: Array<any>,
   dataIds: Array<string>,
   cursor: number,
+  isLoading: boolean,
 }
 
 class InfiniteScroll extends React.Component<Props, State> {
@@ -33,9 +34,10 @@ class InfiniteScroll extends React.Component<Props, State> {
       // Only the ids of each data content
       dataIds: [],
       cursor: 0,
+      isLoading: true,
     }
 
-    this.handleScroll = this.handleScroll.bind(this)
+    this.handleScroll = debounce(1000, this.handleScroll.bind(this))
 
     this.fetchDataIds = this.fetchDataIds.bind(this)
 
@@ -53,21 +55,24 @@ class InfiniteScroll extends React.Component<Props, State> {
   }
 
   loadMore() {
+    this.setState({ isLoading: true })
+
     const { cursor, dataIds, data } = this.state
-
     const { fetchPartialData, fetchOffset = FETCH_OFFSET } = this.props
-
 
     fetchPartialData(cursor, fetchOffset, dataIds)
       .then((payload: any) => {
         const newData = data.concat(payload)
 
-        this.setState({ data: newData, cursor: cursor + fetchOffset })
+        this.setState({
+          data: newData,
+          cursor: cursor + fetchOffset,
+          isLoading: false,
+        })
       })
   }
 
   handleScroll(event: any) {
-
     if (!isScrollEnd(event.target.scrollingElement)) {
       return
     }
@@ -78,19 +83,26 @@ class InfiniteScroll extends React.Component<Props, State> {
   componentDidMount() {
     this.fetchDataIds()
 
-    document.addEventListener('scroll', debounce(250, () => this.handleScroll))
+    document.addEventListener('scroll', this.handleScroll)
+
   }
 
   componentWillUnmount() {
-    document.removeEventListener('scroll', debounce(250, () => this.handleScroll))
+    document.removeEventListener('scroll', this.handleScroll)
+
   }
 
   render() {
-    const { data } = this.state
+    const { data, isLoading } = this.state
+
+    // @ts-ignore
+    const C = () => React.cloneElement(this.props.children, { data })
 
     return (
-      // @ts-ignore
-      React.cloneElement(this.props.children, { data })
+      <Wrapper>
+        <C />
+        {isLoading && <Spinner />}
+      </Wrapper>
     )
   }
 
