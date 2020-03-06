@@ -4,11 +4,11 @@ import { mqMax } from 'utils/mediaQuery'
 
 export const Section = styled.section<any>`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 100vh;
-  padding: 0 5rem;
+  padding: 0;
   background: ${theme.colors.PRIMARY};
   z-index: ${theme.zIndices.SECTION};
   width: 100%;

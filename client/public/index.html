@@ -41,4 +41,10 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script>
+    // Always scroll to top on page load
+    window.onbeforeunload = function () {
+        if(window.scrollTo) window.scrollTo(0,0);
+    };
+  </script>
 </html>
