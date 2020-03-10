@@ -1,6 +1,7 @@
 import React from 'react'
 import { Post as PostType } from 'data/blogger/types'
 import Header from './Header'
+import Error from './Error'
 import {
   PostWrapper,
   Content,
@@ -12,13 +13,12 @@ import {
 
 type Props = {
   post: PostType,
-  index: number,
 }
 
 const hasError = (post: any): boolean => Boolean(!post || post.error)
 
-const Post = ({ post, index}: Props) => hasError(post)
-  ? null
+const Post = ({ post }: Props) => hasError(post)
+  ? <Error error={post.error} />
   : (
     <PostWrapper>
       <Header publishedDate={post.published} />

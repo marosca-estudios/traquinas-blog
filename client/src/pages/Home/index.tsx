@@ -1,30 +1,20 @@
 import React from 'react'
-import styled from 'styled-components'
+import scroll from 'utils/scroll'
 
 import LandingSection from './LandingSection'
 import PostSection from './PostSection'
 
-import scroll from 'utils/scroll'
+import { Container } from '../shared/styled'
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow-y:hidden;
-  overflow-x:hidden;
-`
-
-const Home = () => {
+const HomePage = () => {
   const postSection = React.useRef(null)
 
   return (
-    <React.Fragment>
-      <Container>
-        <LandingSection onScroll={() => scroll(postSection)} />
-        <PostSection ref={postSection} />
-      </Container>
-    </React.Fragment>
+    <Container>
+      <LandingSection onScroll={() => scroll(postSection)} />
+      <PostSection ref={postSection} />
+    </Container>
   )
 }
 
-export default Home
+export default HomePage

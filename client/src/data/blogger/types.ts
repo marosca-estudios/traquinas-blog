@@ -4,6 +4,16 @@ export type PostsResponse = {
   etag: string,
 }
 
+export type Error = {
+  code: number,
+  message: string,
+  errors: Array<{
+    message: string,
+    domain: string,
+    reason: string,
+  }>
+}
+
 export type Post = {
   kind: string,
   id: string,
@@ -29,4 +39,5 @@ export type Post = {
     selfLink: string,
   },
   etag: string,
+  error?: Error,
 }
