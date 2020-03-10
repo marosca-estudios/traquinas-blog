@@ -21,7 +21,7 @@ const Post = ({ post }: Props) => hasError(post)
   ? <Error error={post.error} />
   : (
     <PostWrapper>
-      <Header publishedDate={post.published} />
+      <Header publishedDate={post.published} postId={post.id} />
       <Content>
         <Title>{post.title}</Title>
         <TextWrapper>

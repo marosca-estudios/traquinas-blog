@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   width: 100%;
   min-height: 5rem;
   padding: 1rem;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin-top: 5rem;
 
   button {
@@ -66,5 +66,20 @@ export const Button = styled.button`
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
   }
 
+  &:disabled {
+    opacity: 0.3;
+
+    cursor: not-allowed;
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
   transition: 0.2s ease all;
+`
+
+export const NavigationButtons = styled.div`
+  display: flex;
+  flex-direction: row;
 `

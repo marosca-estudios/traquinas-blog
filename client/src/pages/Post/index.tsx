@@ -5,10 +5,12 @@ import Spinner from 'components/Spinner'
 import Return from 'components/Return'
 import { Post as TPost } from 'data/blogger/types'
 import { getPost } from 'data/blogger/services'
+import { PostsContext } from 'containers/App'
 
 const PostPage = () => {
   const [post, setPost] = useState<TPost>()
 
+  // Fetch specific post
   useEffect(() => {
     const url: string = window.location.pathname
     const id: string = url.substring(url.lastIndexOf('/') + 1)
@@ -25,7 +27,9 @@ const PostPage = () => {
       <Container>
         <Center>
           <PostsContainer>
-            <Return />
+            <PostsContext.Consumer>
+              {postIds => <Return currentPostId={post.id} postIds={postIds} />}
+            </PostsContext.Consumer>
             <Post post={post} />
           </PostsContainer>
         </Center>

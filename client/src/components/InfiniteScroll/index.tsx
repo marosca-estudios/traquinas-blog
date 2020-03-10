@@ -100,6 +100,7 @@ class InfiniteScroll extends React.Component<Props, State> {
 
     return (
       <Wrapper>
+        {(!data || !data.length) && <Spinner />}
         <C />
         {isLoading && <Spinner />}
       </Wrapper>
