@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  BrowserRouter as Router,
+  Router,
 } from 'react-router-dom';
 
 import GlobalStyle from 'styledComponents/GlobalStyle'
 import App from 'containers/App';
+import history from 'global/history';
 
 ReactDOM.render(
   <>
-    <Router>
+    <Router history={history}>
       <GlobalStyle />
       <App />
     </Router>

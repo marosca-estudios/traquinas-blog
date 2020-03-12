@@ -9,19 +9,22 @@ import { PostsContext } from 'containers/App'
 
 const PostPage = () => {
   const [post, setPost] = useState<TPost>()
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   // Fetch specific post
   useEffect(() => {
+    setIsLoading(true)
     const url: string = window.location.pathname
     const id: string = url.substring(url.lastIndexOf('/') + 1)
 
     if (id) {
       Promise.resolve(getPost(id))
         .then((payload) => setPost(payload))
+        .then(() => setIsLoading(false))
     }
-  }, [])
+  }, [window.location.pathname])
 
-  return !post
+  return (!post || isLoading)
     ? <Spinner />
     : (
       <Container>

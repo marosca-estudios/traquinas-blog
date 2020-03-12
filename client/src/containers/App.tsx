@@ -7,9 +7,8 @@ import { listPostIds } from 'data/blogger/services';
 export const PostsContext = React.createContext([]);
 
 class App extends React.Component<{}, { postIds: any }> {
-
-  constructor() {
-    super({})
+  constructor(props: any) {
+    super(props);
 
     this.state = {
       postIds: [],
@@ -23,17 +22,12 @@ class App extends React.Component<{}, { postIds: any }> {
       }))
   }
 
-
   render() {
     return (
       <PostsContext.Provider value={this.state.postIds}>
         <Switch>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Route path="/post/:id">
-            <PostPage />
-          </Route>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/post/:id" component={PostPage} />
         </Switch>
       </PostsContext.Provider>
     )

@@ -31,8 +31,8 @@ export const loadSetOfPosts = async (
   }
 
   const payload: Promise<Post[]> =
-    Promise.all(ids.map(async (post: { id: string }) =>
-      await getPost(post.id)
+    Promise.all(ids.map(async (x) =>
+      await getPost(x.id)
     ))
 
   return payload

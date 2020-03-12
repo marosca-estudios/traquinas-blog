@@ -4,6 +4,7 @@ import {
   Button,
   NavigationButtons,
 } from './styled'
+import { RouteComponentProps, withRouter } from 'react-router'
 
 const HomeIcon = () => (
   <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
@@ -17,7 +18,12 @@ const ForwardIcon = () => (
   <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path></svg>
 )
 
-const Return = ({ currentPostId, postIds }: { currentPostId: string, postIds: Array<{ id: string }>}) => {
+type Props = {
+  currentPostId: string,
+  postIds: Array<{ id: string }>
+}
+
+const Return = ({ currentPostId, postIds, history }: Outter) => {
   const postIndex = postIds.findIndex(x => x.id === currentPostId)
 
   const previousPost: { id: string } = postIds[postIndex - 1]
@@ -25,13 +31,18 @@ const Return = ({ currentPostId, postIds }: { currentPostId: string, postIds: Ar
 
   return (
     <Wrapper>
-      <Button onClick={() => window.location.replace('/')}><HomeIcon /> &nbsp; Início</Button>
+      <Button onClick={() => history.push('/')}><HomeIcon /> &nbsp; Início</Button>
       <NavigationButtons>
-        <Button disabled={!previousPost} onClick={() => window.location.replace(`/post/${previousPost.id}`)}><BackIcon /> &nbsp; Publicação Anterior</Button>
-        <Button disabled={!nextPost} onClick={() => window.location.replace(`/post/${nextPost.id}`)}>Publicação Seguinte &nbsp; <ForwardIcon /></Button>
+        <Button disabled={!previousPost} onClick={() => history.push(`/post/${previousPost.id}`)}><BackIcon /> &nbsp; Publicação Anterior</Button>
+        <Button disabled={!nextPost} onClick={() => history.push(`/post/${nextPost.id}`)}>Publicação Seguinte &nbsp; <ForwardIcon /></Button>
       </NavigationButtons>
     </Wrapper>
   )
 }
 
-export default Return
+
+type Outter = Props & RouteComponentProps<any>;
+
+const Enhanced = withRouter(Return)
+
+export default Enhanced

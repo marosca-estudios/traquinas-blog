@@ -5,6 +5,7 @@ import {
   RightRibbon,
   Card,
 } from './styled'
+import { withRouter, RouteComponentProps } from 'react-router'
 
 type Props = {
   publishedDate: string,
@@ -19,11 +20,11 @@ function handleClick() {
   // @ts-ignore
   if (this.postId) {
       // @ts-ignore
-    window.location.replace(`/post/${this.postId}`)
+      this.history.push(`/post/${this.postId}`)
   }
 }
 
-const Header = ({ publishedDate, postId }: Props) => {
+const Header = ({ publishedDate, postId, history }: Outter) => {
   const formattedDate = new Date(publishedDate)
 
   const day = formattedDate.getDay()
@@ -39,7 +40,7 @@ const Header = ({ publishedDate, postId }: Props) => {
         <>
           <Wrapper>
             <LeftRibbon />
-            <Card onClick={handleClick.bind({ postId })}>
+            <Card onClick={handleClick.bind({ postId, history })}>
               <PublishedIcon /> &nbsp; <p>Publicado a {finalDate}</p>
             </Card>
             <RightRibbon />
@@ -49,4 +50,8 @@ const Header = ({ publishedDate, postId }: Props) => {
     : null
 }
 
-export default Header
+type Outter = Props & RouteComponentProps<any>;
+
+const Enhanced = withRouter(Header)
+
+export default Enhanced
