@@ -10,6 +10,7 @@ export const Section = styled.section<any>`
   margin-top: 100vh;
   padding: 0;
   background: ${theme.colors.PRIMARY};
+
   z-index: ${theme.zIndices.SECTION};
   width: 100%;
 

@@ -4,9 +4,10 @@ import InfinteScroll from 'components/InfiniteScroll'
 
 import { listPostIds, loadSetOfPosts } from 'data/blogger/services'
 
-import Post from './Post'
+import Post from 'components/Post'
 import Menu from './Menu'
-import { Section, PostsContainer, MenuWrapper } from './styled'
+import { Section, MenuWrapper } from './styled'
+import { PostsContainer } from 'pages/shared/styled'
 
 type PostIdPayload = {
   items: Array<{
@@ -14,7 +15,7 @@ type PostIdPayload = {
   }>
 }
 
-const Posts = ({ data }: any) => <PostsContainer>{data.map((x: any, i: any) => <Post post={x} key={i} index={i} />)}</PostsContainer>
+const Posts = ({ data }: any) => <PostsContainer>{data.map((x: any, i: any) => <Post post={x} key={i} />)}</PostsContainer>
 
 const PostSection = React.forwardRef((props, ref) => {
 

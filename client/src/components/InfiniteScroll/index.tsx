@@ -98,10 +98,14 @@ class InfiniteScroll extends React.Component<Props, State> {
     // @ts-ignore
     const C = () => React.cloneElement(this.props.children, { data })
 
+    const isFirstFetch = !data || !data.length
+    const isFetchingMore = data && data.length && isLoading
+
     return (
       <Wrapper>
+        {isFirstFetch ? <Spinner /> : null}
         <C />
-        {isLoading && <Spinner />}
+        {isFetchingMore ? <Spinner /> : null}
       </Wrapper>
     )
   }
