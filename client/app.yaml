@@ -9,7 +9,7 @@
 
 runtime: nodejs10
 handlers:
-  - url: /(.*\.(gif|media|json|ico|eot|ttf|woff|woff2|png|jpg|css|js))$
+  - url: /(.*\.(gif|media|json|ico|eot|ttf|woff|woff2|png|jpg|css|js|mp4))$
     static_files: build/\1
     upload: build/(.*)
   - url: /(.*)
